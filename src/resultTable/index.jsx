@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { rows } from "./../data/rows";
+import Styles from "./styles";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,48 +39,51 @@ export default function ResultTable({
   rowEnd,
 }) {
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ marginTop: "8px", maxHeight: "100%", borderRadius: "8px" }}
-    >
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow sx={{ position: "sticky", top: "0" }}>
-            {columns.map((column) => {
-              if (!checked[column.field]) return null;
-              else
-                return (
-                  <StyledTableCell align="center" key={column.field}>
-                    {column.headerName}
-                  </StyledTableCell>
-                );
-            })}
-          </TableRow>
-        </TableHead>
+    <Styles>
+      <TableContainer
+        component={Paper}
+        sx={{ marginTop: "8px", maxHeight: "100%", borderRadius: "8px" }}
+        className="table-container"
+      >
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow sx={{ position: "sticky", top: "0" }}>
+              {columns.map((column) => {
+                if (!checked[column.field]) return null;
+                else
+                  return (
+                    <StyledTableCell align="center" key={column.field}>
+                      {column.headerName}
+                    </StyledTableCell>
+                  );
+              })}
+            </TableRow>
+          </TableHead>
 
-        <TableBody>
-          {rows.map((row, i) => {
-            return (
-              <StyledTableRow key={row.id}>
-                {columns.map((column) => {
-                  if (!checked[column.field]) return null;
-                  else
-                    return (
-                      <StyledTableCell
-                        align="center"
-                        component="th"
-                        scope="row"
-                        key={column.field}
-                      >
-                        {row[column.field]}
-                      </StyledTableCell>
-                    );
-                })}
-              </StyledTableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          <TableBody>
+            {rows.map((row, i) => {
+              return (
+                <StyledTableRow key={row.id}>
+                  {columns.map((column) => {
+                    if (!checked[column.field]) return null;
+                    else
+                      return (
+                        <StyledTableCell
+                          align="center"
+                          component="th"
+                          scope="row"
+                          key={column.field}
+                        >
+                          {row[column.field]}
+                        </StyledTableCell>
+                      );
+                  })}
+                </StyledTableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Styles>
   );
 }
